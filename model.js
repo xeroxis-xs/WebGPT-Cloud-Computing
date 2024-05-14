@@ -84,16 +84,16 @@ class GPT {
 
       history = history.concat(idx_next);
 
-      // console.log(`Output:\n${this.tokenizer.decode(history)}`);
+      console.log(`Output:\n${this.tokenizer.decode(history)}`);
 
-      // const totalProbs = cpuSoftmax(logits, temperature);
-      // const tokenProbsString = Array.from(totalProbs)
-      //   .map((value, index) => ({ value, index }))
-      //   .sort((a, b) => b.value - a.value)
-      //   .slice(0, 8)
-      //   .map((prob) => `{ ${this.tokenizer.decode([prob.index]).replace(/(\r\n|\n|\r)/gm, "newline")} } : ${prob.value.toPrecision(3)}`)
-      //   .join(" | ");
-      // console.log("Top 8 token probs:", tokenProbsString);
+      const totalProbs = cpuSoftmax(logits, temperature);
+      const tokenProbsString = Array.from(totalProbs)
+        .map((value, index) => ({ value, index }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 8)
+        .map((prob) => `{ ${this.tokenizer.decode([prob.index]).replace(/(\r\n|\n|\r)/gm, "newline")} } : ${prob.value.toPrecision(3)}`)
+        .join(" | ");
+      console.log("Top 8 token probs:", tokenProbsString);
 
       yield this.tokenizer.decode([idx_next]);
     }
